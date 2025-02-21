@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Арбитражная Курочка 🐔</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .block {
+            background-color: #1e1e1e;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: none;
+            background-color: #2e2e2e;
+            color: white;
+        }
+        .rating {
+            margin-top: 10px;
+        }
+        .rating span {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .rating span:hover,
+        .rating span.active {
+            color: gold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Арбитражная Курочка 🐔</h1>
+        
+        <div class="block">
+            <h2>🔥 Полезные ссылки</h2>
+            <a href="https://cryptorank.io" target="_blank" class="button">CryptoRank — ищем связки</a>
+            <div style="margin-top: 10px;">
+                <a href="https://promote.mexc.com/r/7AL7WglS" target="_blank" class="button">MEXC</a>
+                <a href="https://www.bybit.com/invite?ref=58YKXLZ" target="_blank" class="button">Bybit</a>
+                <a href="https://www.binance.com/activity/referral-entry/CPA?ref=CPA_00WLWXWO05" target="_blank" class="button">Binance</a>
+                <a href="https://www.htx.com/invite/ru-ru/1f?invite_code=u7fkb223" target="_blank" class="button">HTX</a>
+            </div>
+        </div>
+
+        <div class="block">
+            <h2>💰 Арбитражный калькулятор</h2>
+            <input type="number" id="investment" placeholder="Сумма вложения ($)">
+            <input type="number" id="buyPrice" placeholder="Цена покупки ($)">
+            <input type="number" id="sellPrice" placeholder="Цена продажи ($)">
+            <input type="number" id="withdrawFee" placeholder="Комиссия за вывод (монет)">
+            <button class="button" onclick="calculateProfit()">Рассчитать прибыль</button>
+            <p id="result"></p>
+        </div>
+
+        <div class="block">
+            <h2>⭐ Оценка сайта</h2>
+            <div class="rating" id="rating">
+                <span onclick="rateSite(1)">★</span>
+                <span onclick="rateSite(2)">★</span>
+                <span onclick="rateSite(3)">★</span>
+                <span onclick="rateSite(4)">★</span>
+                <span onclick="rateSite(5)">★</span>
+            </div>
+            <p id="thanks"></p>
+        </div>
+    </div>
+
+    <script>
+        function calculateProfit() {
+            const investment = parseFloat(document.getElementById('investment').value);
+            const buyPrice = parseFloat(document.getElementById('buyPrice').value);
+            const sellPrice = parseFloat(document.getElementById('sellPrice').value);
+            const withdrawFee = parseFloat(document.getElementById('withdrawFee').value);
+
+            if (isNaN(investment) || isNaN(buyPrice) || isNaN(sellPrice) || isNaN(withdrawFee)) {
+                document.getElementById('result').innerText = 'Пожалуйста, заполните все поля корректно.';
+                return;
+            }
+
+            const coinsBought = investment / buyPrice;
+            const profit = (coinsBought - withdrawFee) * sellPrice - investment;
+
+            document.getElementById('result').innerText = `Прибыль: ${profit.toFixed(2)} $`;
+        }
+
+        function rateSite(stars) {
+            document.querySelectorAll('.rating span').forEach((star, index) => {
+                star.classList.toggle('active', index < stars);
+            });
+            document.getElementById('thanks').innerText = `Спасибо за вашу оценку: ${stars} ★!`;
+        }
+    </script>
+</body>
+</html>
